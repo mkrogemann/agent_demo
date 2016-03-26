@@ -48,7 +48,7 @@ defmodule GameLogic do
 
   @doc """
   This function allows to determine if given player has won the game
-  that is given by its state (Map).
+  that is given by its state.
   """
   def player_wins?(state, player) do
     row_complete = Enum.any?([1, 2, 3], fn(r) -> row_complete(state, r, player) end)
