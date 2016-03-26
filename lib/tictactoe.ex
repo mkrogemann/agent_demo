@@ -11,7 +11,6 @@ defmodule TicTacToe do
   end
 
   defp process(game) do
-    current_state = Agent.get(game, fn state -> state end)
     IO.puts "\n"
     cmd = IO.gets "Command: "
     input = String.upcase(String.strip(cmd))
@@ -19,6 +18,7 @@ defmodule TicTacToe do
       "NEW" -> new_game(game)
       "END" -> terminate
       move ->
+        current_state = Agent.get(game, fn state -> state end)
         if (current_state.game_over) do
           usage(current_state.game_over)
         else
