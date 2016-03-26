@@ -55,9 +55,9 @@ defmodule TicTacToe do
   end
 
   defp new_game(game) do
-    IO.puts "\nNew game\n"
     :ok = Agent.stop(game)
     new_game = Game.start_game("X")
+    IO.puts "\nNew game\n"
     Game.print(get_game_state(new_game))
     process(new_game)
   end
