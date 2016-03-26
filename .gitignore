@@ -1,0 +1,10 @@
+/_build
+/cover
+/deps
+erl_crash.dump
+*.ez
+
+# Mac OS X
+.DS_Store
+/tictactoe
+
