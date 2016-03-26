@@ -35,6 +35,8 @@ defmodule TicTacToe do
       Game.print(next_state)
     else
       usage
+      current_state = Agent.get(game, fn state -> state end)
+      Game.print(current_state)
     end
   end
 

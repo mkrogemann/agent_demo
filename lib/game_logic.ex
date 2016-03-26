@@ -18,28 +18,32 @@ defmodule GameLogic do
   Executes a move for given player and given state.
   """
   def move(state, player, row_num, column_num) do
-    key = row_key(row_num)
-    row = Map.get(state, key)
+    row_key = row_key(row_num)
+    row = Map.get(state, row_key)
     illegal_move = Enum.at(row, column_num - 1) != " "
     if (illegal_move || state.game_over) do
       state
     else
-      updated_row = List.replace_at(row, column_num - 1, player)
-      new_state = %{ state | key => updated_row }
-      if (player_wins?(new_state, player)) do
-        %{ new_state | :game_over => true, :winner => player }
-      else
-        if (all_filled?(new_state)) do
-          %{ new_state | :game_over => true }
-        else
-          %{ new_state | :next_player => next_player(player) }
-        end
-      end
+      update_state(state, player, row, column_num, row_key)
     end
   end
 
   defp row_key(row_num) do
     String.to_atom("row_" <> Integer.to_string(row_num))
+  end
+
+  defp update_state(state, player, row, column_num, row_key) do
+    updated_row = List.replace_at(row, column_num - 1, player)
+    new_state = %{ state | row_key => updated_row }
+    if (player_wins?(new_state, player)) do
+      %{ new_state | :game_over => true, :winner => player }
+    else
+      if (all_filled?(new_state)) do
+        %{ new_state | :game_over => true }
+      else
+        %{ new_state | :next_player => next_player(player) }
+      end
+    end
   end
 
   @doc """
