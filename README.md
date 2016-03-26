@@ -23,5 +23,3 @@ The target ```escript.build``` produces an executable escript. An [escript](http
 ``` bash
 ./tictactoe
 ```
-
-end, new c1, C2
