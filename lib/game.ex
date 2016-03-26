@@ -59,7 +59,7 @@ defmodule Game do
   defp print_footer(io_device, state) do
     IO.write(io_device, "\n")
     if (state.game_over) do
-      IO.write(io_device, "Game Over\n")
+      IO.write(io_device, "Game over\n")
       case state.winner do
         nil -> IO.write(io_device, "\nNo winner :(")
         player -> IO.write(io_device, "\nPlayer \"#{player}\" wins!")
