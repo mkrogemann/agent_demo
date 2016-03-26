@@ -25,7 +25,7 @@ The implementation is based on what is specified in the Tic Tac Toe Application 
 
 It diverges from the aforementioned Kata in some respects.
 
-The display and expected input is not zero-based as I think that humans can relate better to one-based notation and it expects its input in English, i.e. "new" and "end" for a new game and for quitting the application.
+The display and expected input is not zero-based as I think that humans can relate better to one-based notation and the app expects its input in English, i.e. "new" and "end" for a new game and for quitting the application.
 
 What you need to do after a (hopefully successful) build is this:
 
