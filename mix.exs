@@ -8,10 +8,7 @@ defmodule AgentDemo.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps,
-     escript: [main_module: TicTacToe, name: "tictactoe"],
-     test_coverage: [
-       tool: ExCoveralls
-       ]
+     escript: [main_module: TicTacToe, name: "tictactoe"]
      ]
   end
 
@@ -32,8 +29,6 @@ defmodule AgentDemo.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [
-      {:excoveralls, "~> 0.5.1", only: [:dev, :test]}
-    ]
+    []
   end
 end
