@@ -5,9 +5,12 @@ defmodule TicTacToe do
   """
   def main(_args) do
     game = Game.start_game("X")
-    current_state = Agent.get(game, fn state -> state end)
-    Game.print(current_state)
+    Game.print(get_game_state(game))
     process(game)
+  end
+
+  defp get_game_state(game) do
+    Agent.get(game, fn state -> state end)
   end
 
   defp process(game) do
@@ -18,9 +21,8 @@ defmodule TicTacToe do
       "NEW" -> new_game(game)
       "END" -> terminate
       move ->
-        current_state = Agent.get(game, fn state -> state end)
-        if (current_state.game_over) do
-          usage(current_state.game_over)
+        if (get_game_state(game).game_over) do
+          usage(game_over = true)
         else
           handle_move(move, game)
         end
@@ -35,8 +37,7 @@ defmodule TicTacToe do
       Game.print(next_state)
     else
       usage
-      current_state = Agent.get(game, fn state -> state end)
-      Game.print(current_state)
+      Game.print(get_game_state(game))
     end
   end
 
@@ -57,7 +58,7 @@ defmodule TicTacToe do
     IO.puts "\nNew game\n"
     :ok = Agent.stop(game)
     new_game = Game.start_game("X")
-    Game.print(Agent.get(new_game, fn state -> state end))
+    Game.print(get_game_state(new_game))
     process(new_game)
   end
 
