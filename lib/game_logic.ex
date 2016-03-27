@@ -7,7 +7,7 @@ defmodule GameLogic do
   @doc """
   Initialize a game state. Allows to give an initial state that is different
   from a new game. Also allows specification of first player.
-  Please note that the params exist mainly for testability.
+  Please note that the params exist mainly to simplify testing.
   """
   def init(next_player \\ "X",
            row_1 \\ [" ", " ", " "],
@@ -21,14 +21,14 @@ defmodule GameLogic do
   @doc """
   Executes a move for given player and given state.
   """
-  def move(state, row_num, column_num) do
+  def move(state, row_num, col_num) do
     key = row_key(row_num)
     row = Map.get(state, key)
-    illegal_move = Enum.at(row, column_num - 1) != " "
+    illegal_move = Enum.at(row, col_num - 1) != " "
     if (illegal_move || state.game_over) do
       state
     else
-      update_state(state, state.next_player, row, column_num, key)
+      update_state(state, row, col_num, key)
     end
   end
 
@@ -36,8 +36,9 @@ defmodule GameLogic do
     String.to_atom("row_" <> Integer.to_string(row_num))
   end
 
-  defp update_state(state, player, row, column_num, key) do
-    updated_row = List.replace_at(row, column_num - 1, player)
+  defp update_state(state, row, col_num, key) do
+    player = state.next_player
+    updated_row = List.replace_at(row, col_num - 1, player)
     new_state = %{state | key => updated_row}
     if (player_wins?(new_state, player)) do
       %{new_state | :game_over => true, :winner => player}
