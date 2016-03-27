@@ -19,7 +19,7 @@ defmodule TicTacToe do
     input = String.upcase(String.strip(cmd))
     case input do
       "NEW" -> new_game(game)
-      "END" -> terminate
+      "EXIT" -> terminate
       move ->
         if (get_game_state(game).game_over) do
           usage(game_over = true)
@@ -69,7 +69,7 @@ defmodule TicTacToe do
 
   defp usage(game_over \\ false) do
     case game_over do
-      true -> IO.puts "\nGame over. Please enter either 'new' or 'end'"
+      true -> IO.puts "\nGame over. Please enter either 'new' or 'exit'"
       false -> IO.puts "\nInvalid input. Please try again"
     end
   end

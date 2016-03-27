@@ -23,11 +23,11 @@ The target ```escript.build``` produces an executable escript. An [escript](http
 
 The implementation is based on what is specified in the Tic Tac Toe Application Kata that you can find [here](http://ccd-school.de/coding-dojo/).
 
-It diverges from the aforementioned Kata in some respects.
+It diverges from the aforementioned Kata in one aspect.
 
-The display and expected input is not zero-based as I think that humans can relate better to one-based notation and the app expects its input in English, i.e. "new" and "end" for a new game and for quitting the application.
+The display and expected input is not zero-based as I think that it's easier for humans to work with a one-based notation. Other than that, the implementation behaves as described at the ccd-school site. These inputs are understood: 'exit', 'new' and moves such as 'c1', 'a2' etc. Inputs are not case sensitive.
 
-What you need to do after a (hopefully successful) build is this:
+In order to play, what you need to do after a hopefully successful build is this:
 
 ``` bash
 ./tictactoe
