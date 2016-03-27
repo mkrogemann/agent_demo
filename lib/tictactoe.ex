@@ -49,8 +49,7 @@ defmodule TicTacToe do
   end
 
   defp column_num(input) do
-    col_string = String.at(input, 0)
-    case col_string do
+    case String.at(input, 0) do
       "A" -> 1
       "B" -> 2
       "C" -> 3
