@@ -1,4 +1,7 @@
 defmodule TicTacToe do
+  @moduledoc """
+  Implements the user interface.
+  """
 
   @doc """
   Entry point: Starts a Game and then enters the process loop.
@@ -56,10 +59,10 @@ defmodule TicTacToe do
 
   defp new_game(game) do
     :ok = Agent.stop(game)
-    new_game = Game.start_game("X")
+    next_game = Game.start_game("X")
     IO.puts "\nNew game\n"
-    Game.print(get_game_state(new_game))
-    process(new_game)
+    Game.print(get_game_state(next_game))
+    process(next_game)
   end
 
   defp terminate() do
@@ -70,7 +73,7 @@ defmodule TicTacToe do
   defp usage(game_over \\ false) do
     case game_over do
       true -> IO.puts "\nGame over. Please enter either 'new' or 'exit'"
-      false -> IO.puts "\nInvalid input. Please try again"
+      _ -> IO.puts "\nInvalid input. Please try again"
     end
   end
 end

@@ -1,4 +1,7 @@
 defmodule Game do
+  @moduledoc """
+  Manages the game's state by use of an Elixir Agent.
+  """
 
   @doc """
   Starts a new game.
