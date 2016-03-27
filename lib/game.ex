@@ -29,9 +29,9 @@ defmodule Game do
   """
   def print(state, io_device \\ Process.group_leader()) do
     print_header(io_device)
-    print_row(io_device, state.row_1, 1, true)
-    print_row(io_device, state.row_2, 2, true)
-    print_row(io_device, state.row_3, 3, true)
+    print_row(io_device, state.row_1, 1)
+    print_row(io_device, state.row_2, 2)
+    print_row(io_device, state.row_3, 3)
     print_footer(io_device, state)
   end
 
@@ -40,10 +40,12 @@ defmodule Game do
     IO.write(io_device, "  A | B | C \n")
   end
 
-  defp print_row(io_device, row, row_nr, row_start \\ false) do
-    if row_start do
-      IO.write(io_device, Integer.to_string(row_nr))
-    end
+  defp print_row(io_device, row, row_nr) do
+    IO.write(io_device, Integer.to_string(row_nr))
+    _print_row(io_device, row, row_nr)
+  end
+
+  defp _print_row(io_device, row, row_nr) do
     case row do
       [] -> IO.write(io_device, "\n")
       [head|tail] ->
@@ -52,7 +54,7 @@ defmodule Game do
           [_|_] -> IO.write(io_device, " |")
           _ -> nil
         end
-        print_row(io_device, tail, row_nr)
+        _print_row(io_device, tail, row_nr)
     end
   end
 
@@ -62,7 +64,7 @@ defmodule Game do
       IO.write(io_device, "Game over\n")
       case state.winner do
         nil -> IO.write(io_device, "\nNo winner :(")
-        player -> IO.write(io_device, "\nPlayer \"#{player}\" wins!")
+        player -> IO.write(io_device, "\nPlayer #{player} wins!")
       end
     else
       IO.write(io_device, "Next player: " <> state.next_player)

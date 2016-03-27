@@ -42,7 +42,7 @@ defmodule GameTest do
     {:ok, io}  = StringIO.open("")
     Game.print(new_state, io)
 
-    assert StringIO.flush(io) == "\nGame state:\n\n  A | B | C \n1 X | O |  \n2   | X |  \n3   | O | X\n\nGame over\n\nPlayer \"X\" wins!"
+    assert StringIO.flush(io) == "\nGame state:\n\n  A | B | C \n1 X | O |  \n2   | X |  \n3   | O | X\n\nGame over\n\nPlayer X wins!"
   end
 
   test "print/2: should produce a printout for a game that is over and has no winner" do
