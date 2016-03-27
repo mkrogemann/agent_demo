@@ -24,8 +24,9 @@ defmodule TicTacToe do
       "NEW" -> new_game(game)
       "EXIT" -> terminate
       move ->
-        if (get_game_state(game).game_over) do
-          usage(game_over = true)
+        current_state = get_game_state(game)
+        if (current_state.game_over) do
+          usage(current_state)
         else
           handle_move(move, game)
         end
@@ -39,8 +40,9 @@ defmodule TicTacToe do
       next_state = Game.move(game, row_num(move), column_num(move))
       Game.print(next_state)
     else
-      usage
-      Game.print(get_game_state(game))
+      current_state = get_game_state(game)
+      usage(current_state)
+      Game.print(current_state)
     end
   end
 
@@ -69,8 +71,8 @@ defmodule TicTacToe do
     System.halt(0)
   end
 
-  defp usage(game_over \\ false) do
-    case game_over do
+  defp usage(state) do
+    case state.game_over do
       true -> IO.puts "\nGame over. Please enter either 'new' or 'exit'"
       _ -> IO.puts "\nInvalid input. Please try again"
     end
