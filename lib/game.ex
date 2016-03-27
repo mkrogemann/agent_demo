@@ -49,8 +49,8 @@ defmodule Game do
       [head|tail] ->
         IO.write(io_device, " " <> head)
         case tail do
-          [] -> nil
           [_|_] -> IO.write(io_device, " |")
+          _ -> nil
         end
         print_row(io_device, tail, row_nr)
     end
