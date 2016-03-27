@@ -51,24 +51,24 @@ defmodule GameLogic do
   that is given by its state.
   """
   def player_wins?(state, player) do
-    row_complete = Enum.any?([1, 2, 3], fn(r) -> row_complete(state, r, player) end)
-    column_complete = Enum.any?([0, 1, 2], fn(c) -> column_complete(state, c, player) end)
-    row_complete || column_complete || diagonal_complete(state, player)
+    row_complete = Enum.any?([1, 2, 3], fn(r) -> row_complete?(state, r, player) end)
+    column_complete = Enum.any?([0, 1, 2], fn(c) -> column_complete?(state, c, player) end)
+    row_complete || column_complete || diagonal_complete?(state, player)
   end
 
-  defp row_complete(state, row_num, player) do
+  defp row_complete?(state, row_num, player) do
     row = Map.get(state, row_key(row_num))
     Enum.all?(row, fn(elem) -> elem == player end)
   end
 
-  defp column_complete(state, col_num, player) do
+  defp column_complete?(state, col_num, player) do
     column = [Enum.at(Map.get(state, row_key(1)), col_num),
               Enum.at(Map.get(state, row_key(2)), col_num),
               Enum.at(Map.get(state, row_key(3)), col_num)]
     Enum.all?(column, fn(elem) -> elem == player end)
   end
 
-  defp diagonal_complete(state, player) do
+  defp diagonal_complete?(state, player) do
     from_top_left     = [Enum.at(Map.get(state, row_key(1)), 0),
                          Enum.at(Map.get(state, row_key(2)), 1),
                          Enum.at(Map.get(state, row_key(3)), 2)]
