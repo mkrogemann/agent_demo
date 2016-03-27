@@ -1,9 +1,9 @@
 defmodule GameLogicTest do
   use ExUnit.Case, async: true
 
-  test "move/4: a legal move should update the game state" do
+  test "move/3: a legal move should update the game state" do
     initial_state = GameLogic.init
-    next_state = GameLogic.move(initial_state, "X", 2, 2)
+    next_state = GameLogic.move(initial_state, 2, 2)
 
     assert initial_state.row_2 == [" ", " ", " "]
     assert next_state.row_2 == [" ", "X", " "]
@@ -11,32 +11,32 @@ defmodule GameLogicTest do
     assert ! next_state.game_over
   end
 
-  test "move/4: an illegal move should be returned with the current game state" do
+  test "move/3: an illegal move should be returned with the current game state" do
     initial_state = GameLogic.init
-    next_state = GameLogic.move(initial_state, "X", 2, 2)
+    next_state = GameLogic.move(initial_state, 2, 2)
 
-    assert GameLogic.move(next_state, "O", 2, 2) == next_state
+    assert GameLogic.move(next_state, 2, 2) == next_state
     assert ! next_state.game_over
   end
 
-  test "move/4: should set :game_over to true for winning move" do
+  test "move/3: should set :game_over to true for winning move" do
     state = GameLogic.init("X",
                           ["X","O","X"],
                           ["O","X","O"],
                           ["O","X"," "])
-    next_state = GameLogic.move(state, "X", 3, 3)
+    next_state = GameLogic.move(state, 3, 3)
 
     assert GameLogic.player_wins?(next_state, "X")
     assert next_state.game_over
   end
 
-  test "move/4: a move should not change the game state when :game_over is true" do
+  test "move/3: a move should not change the game state when :game_over is true" do
     state = GameLogic.init("X",
                           ["X","O"," "],
                           ["O","X"," "],
                           ["O","X"," "])
-    next_state = GameLogic.move(state, "X", 3, 3)
-    next_next_state = GameLogic.move(next_state, "O", 1, 3)
+    next_state = GameLogic.move(state, 3, 3)
+    next_next_state = GameLogic.move(next_state, 1, 3)
 
     assert next_state == next_next_state
     assert next_next_state.game_over

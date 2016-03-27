@@ -14,11 +14,11 @@ defmodule Game do
   end
 
   @doc """
-  Executes a move for given player.
+  Executes a move for next player.
   """
   def move(game, row_num, column_num) do
     state = Agent.get(game, fn state -> state end)
-    next_state = GameLogic.move(state, state.next_player, row_num, column_num)
+    next_state = GameLogic.move(state, row_num, column_num)
     Agent.update(game, fn _state -> next_state end)
     next_state
   end

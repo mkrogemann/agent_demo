@@ -10,7 +10,7 @@ defmodule GameTest do
     assert ! state.game_over
   end
 
-  test "move/3: should update the state maintained by game Agent" do
+  test "move/3: should update the state maintained by game agent" do
     game = Game.start_game("X")
     Game.move(game, 1, 1)
     new_state = Agent.get(game, fn state -> state end)
@@ -50,7 +50,7 @@ defmodule GameTest do
                           ["X","O"," "],
                           ["X","O","O"],
                           ["O","X","X"])
-    final_state = GameLogic.move(state, "X", 1, 3)
+    final_state = GameLogic.move(state, 1, 3)
     {:ok, io}  = StringIO.open("")
     Game.print(final_state, io)
 

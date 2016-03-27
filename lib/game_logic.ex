@@ -17,14 +17,14 @@ defmodule GameLogic do
   @doc """
   Executes a move for given player and given state.
   """
-  def move(state, player, row_num, column_num) do
+  def move(state, row_num, column_num) do
     row_key = row_key(row_num)
     row = Map.get(state, row_key)
     illegal_move = Enum.at(row, column_num - 1) != " "
     if (illegal_move || state.game_over) do
       state
     else
-      update_state(state, player, row, column_num, row_key)
+      update_state(state, state.next_player, row, column_num, row_key)
     end
   end
 

@@ -70,7 +70,7 @@ defmodule TicTacToe do
   defp usage(game_over \\ false) do
     case game_over do
       true -> IO.puts "\nGame over. Please enter either 'new' or 'end'"
-      false -> IO.puts "\nInvalid input, please try again"
+      false -> IO.puts "\nInvalid input. Please try again"
     end
   end
 end
