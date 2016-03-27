@@ -26,8 +26,8 @@ defmodule TicTacToe do
         else
           handle_move(move, game)
         end
+        process(game)
     end
-    process(game)
   end
 
   defp handle_move(move, game) do
