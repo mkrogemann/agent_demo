@@ -1,6 +1,7 @@
 defmodule Game do
   @moduledoc """
-  Manages the game's state by use of an Elixir Agent.
+  Manages the game's state by use of an Elixir Agent and provides a printer
+  for the game state.
   """
 
   @doc """
