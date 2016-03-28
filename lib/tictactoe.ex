@@ -34,15 +34,20 @@ defmodule TicTacToe do
     end
   end
 
+  def valid_input?(move) do
+    Regex.match?(~r/^[A-C][1-3]$/, move)
+  end
+
   defp handle_move(move, game) do
-    if Regex.match?(~r/^[A-C][1-3]$/, move) do
-      IO.puts "\nEntered move: #{move}\n"
-      next_state = Game.move(game, row_num(move), column_num(move))
-      Game.print(next_state)
-    else
-      current_state = get_game_state(game)
-      usage(current_state)
-      Game.print(current_state)
+    case valid_input?(move) do
+      true ->
+        IO.puts "\nEntered move: #{move}\n"
+        next_state = Game.move(game, row_num(move), column_num(move))
+        Game.print(next_state)
+      _ ->
+        current_state = get_game_state(game)
+        usage(current_state)
+        Game.print(current_state)
     end
   end
 
