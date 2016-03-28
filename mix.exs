@@ -29,6 +29,9 @@ defmodule AgentDemo.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:credo, "~> 0.3.10", only: [:dev, :test]}]
+    [
+      {:credo, "~> 0.3.10", only: [:dev, :test]},
+      {:mock, "~> 0.1.3", only: [:test]}
+    ]
   end
 end

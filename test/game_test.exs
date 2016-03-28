@@ -29,6 +29,7 @@ defmodule GameTest do
     Game.print(new_state, io)
 
     assert StringIO.flush(io) == "\nGame state:\n\n  A | B | C \n1 X |   |  \n2   | O |  \n3   |   | X\n\nNext player: O"
+
     StringIO.close(io)
   end
 
@@ -44,6 +45,7 @@ defmodule GameTest do
     Game.print(new_state, io)
 
     assert StringIO.flush(io) == "\nGame state:\n\n  A | B | C \n1 X | O |  \n2   | X |  \n3   | O | X\n\nGame over\n\nPlayer X wins!"
+
     StringIO.close(io)
   end
 
@@ -58,6 +60,7 @@ defmodule GameTest do
 
     assert final_state.game_over
     assert StringIO.flush(io) == "\nGame state:\n\n  A | B | C \n1 X | O | X\n2 X | O | O\n3 O | X | X\n\nGame over\n\nNo winner :("
+
     StringIO.close(io)
   end
 end
