@@ -12,7 +12,7 @@ defmodule TicTacToe do
     process(game)
   end
 
-  defp get_game_state(game) do
+  def get_game_state(game) do
     Agent.get(game, fn state -> state end)
   end
 
@@ -46,7 +46,7 @@ defmodule TicTacToe do
         Game.print(next_state)
       _ ->
         current_state = get_game_state(game)
-        usage(current_state)
+        usage(current_state, io_device)
         Game.print(current_state)
     end
   end
@@ -76,10 +76,12 @@ defmodule TicTacToe do
     System.halt(0)
   end
 
-  defp usage(state) do
+  defp usage(state, io_device \\ Process.group_leader()) do
     case state.game_over do
-      true -> IO.puts "\nGame over. Please enter either 'new' or 'exit'"
-      _ -> IO.puts "\nInvalid input. Please try again"
+      true ->
+        IO.write(io_device, "\nGame over. Please enter either 'new' or 'exit'")
+      _ ->
+        IO.write(io_device, "\nInvalid input. Please try again")
     end
   end
 end

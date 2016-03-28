@@ -1,5 +1,5 @@
 defmodule TicTacToeTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case
 
   import Mock
 
@@ -28,7 +28,22 @@ defmodule TicTacToeTest do
       assert called Game.move(game, 2, 2)
       assert called Game.print(dummy_state)
       assert StringIO.flush(io) == "\nEntered move: B2\n"
-      
+
+      StringIO.close(io)
+    end
+  end
+
+  test "handle_move/2: an invalid move should print usage and current game state" do
+    game = Game.start_game("X")
+    move = "ASDF"
+    dummy_state = GameLogic.init("X")
+    {:ok, io} = StringIO.open("")
+    with_mock Game, [print: fn(_state) -> nil end] do
+      TicTacToe.handle_move(move, game, io)
+
+      assert called Game.print(dummy_state)
+      assert StringIO.flush(io) == "\nInvalid input. Please try again"
+
       StringIO.close(io)
     end
   end
