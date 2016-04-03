@@ -21,13 +21,11 @@ defmodule TicTacToeTest do
     move = "B2"
     dummy_state = GameLogic.init("X")
     {:ok, io} = StringIO.open("")
-    with_mock Game, [move: fn(_game, _rnum, _cnum) -> dummy_state end,
-                     print: fn(_state) -> nil end] do
+    with_mock Game, [move: fn(_game, _rnum, _cnum) -> dummy_state end] do
       TicTacToe.handle_move(move, game, io)
 
       assert called Game.move(game, 2, 2)
-      assert called Game.print(dummy_state)
-      assert StringIO.flush(io) == "\nEntered move: B2\n"
+      assert StringIO.flush(io) == "\nEntered move: B2\n\nGame state:\n\n  A | B | C \n1   |   |  \n2   |   |  \n3   |   |  \n\nNext player: X"
 
       StringIO.close(io)
     end
@@ -38,10 +36,10 @@ defmodule TicTacToeTest do
     move = "ASDF"
     dummy_state = GameLogic.init("X")
     {:ok, io} = StringIO.open("")
-    with_mock Game, [print: fn(_state) -> nil end] do
+    with_mock GamePrinter, [print: fn(_state, io) -> nil end] do
       TicTacToe.handle_move(move, game, io)
 
-      assert called Game.print(dummy_state)
+      assert called GamePrinter.print(dummy_state, io)
       assert StringIO.flush(io) == "\nInvalid input. Please try again"
 
       StringIO.close(io)

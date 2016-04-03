@@ -8,10 +8,13 @@ defmodule TicTacToe do
   """
   def main(_args) do
     game = Game.start_game("X")
-    Game.print(get_game_state(game))
+    GamePrinter.print(get_game_state(game))
     process(game)
   end
 
+  @doc """
+  Returns the current state stored in the Game Agent.
+  """
   def get_game_state(game) do
     Agent.get(game, fn state -> state end)
   end
@@ -34,21 +37,28 @@ defmodule TicTacToe do
     end
   end
 
-  def valid_input?(move) do
-    Regex.match?(~r/^[A-C][1-3]$/, move)
-  end
-
+  @doc """
+  Passes a valid move on to the Game, blocks an invalid move and outputs a
+  usage hint.
+  """
   def handle_move(move, game, io_device \\ Process.group_leader()) do
     case valid_input?(move) do
       true ->
         IO.write(io_device, "\nEntered move: #{move}\n")
         next_state = Game.move(game, row_num(move), column_num(move))
-        Game.print(next_state)
+        GamePrinter.print(next_state, io_device)
       _ ->
         current_state = get_game_state(game)
         usage(current_state, io_device)
-        Game.print(current_state)
+        GamePrinter.print(current_state, io_device)
     end
+  end
+
+  @doc """
+  Validates incoming moves to make sure they are of the form 'C1', 'B2', etc.
+  """
+  def valid_input?(move) do
+    Regex.match?(~r/^[A-C][1-3]$/, move)
   end
 
   defp row_num(input) do
@@ -67,7 +77,7 @@ defmodule TicTacToe do
     :ok = Agent.stop(game)
     next_game = Game.start_game("X")
     IO.puts "\nNew game\n"
-    Game.print(get_game_state(next_game))
+    GamePrinter.print(get_game_state(next_game))
     process(next_game)
   end
 
