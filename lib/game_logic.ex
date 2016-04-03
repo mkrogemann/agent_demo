@@ -10,12 +10,12 @@ defmodule GameLogic do
   Please note that the params exist mainly to simplify testing.
   """
   def init(next_player \\ "X",
-           row_1 \\ [" ", " ", " "],
-           row_2 \\ [" ", " ", " "],
-           row_3 \\ [" ", " ", " "]) do
-    %{:row_1 => row_1, :row_2 => row_2,
-      :row_3 => row_3, :next_player => next_player,
-      :game_over => false, :winner => nil}
+           row_1       \\ [" ", " ", " "],
+           row_2       \\ [" ", " ", " "],
+           row_3       \\ [" ", " ", " "]) do
+    %{:row_1     => row_1, :row_2       => row_2,
+      :row_3     => row_3, :next_player => next_player,
+      :game_over => false, :winner      => nil}
   end
 
   @doc """
