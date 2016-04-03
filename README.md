@@ -3,7 +3,7 @@ AgentDemo [![Build Status](https://travis-ci.org/mkrogemann/agent_demo.svg)](htt
 
 An implementation of Tic Tac Toe to serve as a demo of Elixir's Agent abstraction.
 
-Accompanies this blog post: TODO_LINK
+Accompanies a [blog post](https://blog.codecentric.de/en/2016/04/elixir-where-is-your-state) on Elixir's Agents module.
 
 # Build
 
