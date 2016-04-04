@@ -8,15 +8,8 @@ defmodule TicTacToe do
   """
   def main(_args) do
     game = Game.start_game("X")
-    GamePrinter.print(get_game_state(game))
+    GamePrinter.print(Game.game_state(game))
     process(game)
-  end
-
-  @doc """
-  Returns the current state stored in the Game Agent.
-  """
-  def get_game_state(game) do
-    Agent.get(game, fn state -> state end)
   end
 
   defp process(game) do
@@ -27,7 +20,7 @@ defmodule TicTacToe do
       "NEW" -> new_game(game)
       "EXIT" -> terminate
       move ->
-        current_state = get_game_state(game)
+        current_state = Game.game_state(game)
         if (current_state.game_over) do
           usage(current_state)
         else
@@ -48,7 +41,7 @@ defmodule TicTacToe do
         next_state = Game.move(game, row_num(move), column_num(move))
         GamePrinter.print(next_state, io_device)
       _ ->
-        current_state = get_game_state(game)
+        current_state = Game.game_state(game)
         usage(current_state, io_device)
         GamePrinter.print(current_state, io_device)
     end
@@ -77,7 +70,7 @@ defmodule TicTacToe do
     :ok = Agent.stop(game)
     next_game = Game.start_game("X")
     IO.puts "\nNew game\n"
-    GamePrinter.print(get_game_state(next_game))
+    GamePrinter.print(Game.game_state(next_game))
     process(next_game)
   end
 

@@ -20,9 +20,16 @@ defmodule Game do
   Executes a move for next player.
   """
   def move(game, row_num, column_num) do
-    state = Agent.get(game, fn state -> state end)
+    state = game_state(game)
     next_state = GameLogic.move(state, row_num, column_num)
     Agent.update(game, fn _state -> next_state end)
     next_state
+  end
+
+  @doc """
+  Returns the current state stored in the Game Agent.
+  """
+  def game_state(game) do
+    Agent.get(game, fn state -> state end)
   end
 end
